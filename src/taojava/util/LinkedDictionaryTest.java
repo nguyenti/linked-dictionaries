@@ -41,7 +41,7 @@ public class LinkedDictionaryTest {
 		assertEquals(dict.get("b"), "beta");
 		dict.set("a", "aardvark");
 		dict.set("b", "baboon");
-		assertEquals(dict.get("a"), "alpha");
+		assertEquals(dict.get("a"), "aardvark");
 		assertEquals(dict.get("b"), "baboon");
 	} // testReplace
 	

@@ -50,6 +50,7 @@ public class LinkedDictionary<K,V> implements Dictionary<K,V> {
     public LinkedDictionary() {
          this.front = new LDNode<K,V>(null,null);
          this.cached = this.front;
+         this.front.next = null;
     } // LinkedDictionary
 
     // +-----------+-------------------------------------------------------
@@ -79,7 +80,16 @@ public class LinkedDictionary<K,V> implements Dictionary<K,V> {
     // +----------+
 
     public void set(K key, V value) {
-        this.front.next = new LDNode<K,V>(key,value,this.front.next);
+	LDNode<K, V> tmp = this.front;
+	    while (tmp.next != null) {
+		if(tmp.key.equals(key)) {
+		    tmp.value = value;
+		    return;
+		}
+		tmp = tmp.next;
+	    }
+        tmp.next = new LDNode<K,V>(key,value,this.front.next);
+        tmp.next.next = null;
     } // set(K,V)
 
     public V remove(K key) throws Exception {
@@ -166,6 +176,7 @@ public class LinkedDictionary<K,V> implements Dictionary<K,V> {
                 this.cached = prev;
                 return prev;
             } // if
+            prev = prev.next;
         } // if
 
         // If we've gotten through the while loop, no elements
